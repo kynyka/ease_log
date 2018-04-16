@@ -11,7 +11,10 @@ class Topic(models.Model):
 
     def __unicode__(self):  # Py 3.X用__str__()
         '''返回模型的字符串表示'''
-        return self.text
+        if len(self.text) > 50:
+            return self.text + ' >w<'
+        else:
+            return self.text
 
 class Entry(models.Model):  # 同Topic一样,继承Django基类Model
     '''学到的有关某个主题的具体知识'''
