@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for learning_log project.
 
@@ -30,13 +31,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS = [  # 它告诉Django项目是由哪些应用程序组成的
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 我的应用程序
+    'learning_logs',  # 即python manage.py startapp xxx 时创建的那个名字
 ]
 
 MIDDLEWARE = [
