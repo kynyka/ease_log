@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """learning_log URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -18,4 +19,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'', include('learning_logs.urls', namespace='learning_logs')),  # 实参namespace让我们能够将learning_logs的URL同项目中的其他URL区分开来
 ]
