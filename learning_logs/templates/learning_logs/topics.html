@@ -6,7 +6,11 @@
 
   <ul>
     {% for topic in topics %}
-    <li>{{ topic }}</li>
+    <li>
+      <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
+      <!--使用模板标签 url 根据learning_logs中名为 topic 的URL模式来生成合适的链接。这个
+URL模式要求提供实参 topic_id ，因此我们在模板标签 url 中添加了属性 topic.id -->
+    </li>
     {% empty %}  <!--模板标签 \{\% empty \%\} ，它告诉Django在列表 topics 为空时该怎么办：这里是打印一条消息，告诉用户还没有添加任何主题。-->
     <li>No topics have been added yet.</li>
   {% endfor %}
