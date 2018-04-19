@@ -1,4 +1,4 @@
-<!--子模板的第一行必须包含标签 {% extends %} ，让Django知道它继承了哪个父模板。这行代码导入模板base.html的所有内容，让index.html能够指定要在 content 块预留的空间中添加的内容。-->
+<!--子模板的第一行必须包含标签 \{\% extends \%\} ，让Django知道它继承了哪个父模板。这行代码导入模板base.html的所有内容，让index.html能够指定要在 content 块预留的空间中添加的内容。注意：前面加了转义符反斜杠，不加Django会对此解析，但由于是在html注释里，就会报错;一开始还以为注释不能放第一行,结果放第2行仍错,转义了才不报错-->
 {% extends 'learning_logs/base.html' %}
 {% block content %}
   <p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>

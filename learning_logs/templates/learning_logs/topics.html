@@ -1,0 +1,15 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+
+  <p>Topic<p>
+
+  <ul>
+    {% for topic in topics %}
+    <li>{{ topic }}</li>
+    {% empty %}  <!--模板标签 \{\% empty \%\} ，它告诉Django在列表 topics 为空时该怎么办：这里是打印一条消息，告诉用户还没有添加任何主题。-->
+    <li>No topics have been added yet.</li>
+  {% endfor %}
+  </ul>
+
+{% endblock content %}
