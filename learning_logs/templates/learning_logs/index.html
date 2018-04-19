@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Index</title>
-</head>
-<body>
-	<p>Learning Log</p>
-
-	<p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
-</body>
-</html>
+<!--子模板的第一行必须包含标签 {% extends %} ，让Django知道它继承了哪个父模板。这行代码导入模板base.html的所有内容，让index.html能够指定要在 content 块预留的空间中添加的内容。-->
+{% extends 'learning_logs/base.html' %}
+{% block content %}
+  <p>Learning Log helps you keep track of your learning, for any topic you're learning about.</p>
+{% endblock content %}
