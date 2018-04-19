@@ -13,5 +13,5 @@ def index(request):
 def topics(request):
     '''显示所有的主题'''
     topics = Topics.objects.order_by('date_added')
-    context = {'topics': topics}
+    context = {'topics': topics}  # 我们定义了一个将要发送给模板的上下文。上下文是一个字典，其中的键是我们将在模板中用来访问数据的名称，而值是我们要发送给模板的数据。在这里，只有一个键—值对，它包含我们将在网页中显示的一组主题。创建使用数据的网页时，除对象 request 和模板的路径外，我们还将变量 context 传递给 render()
     return render(request, 'learning_logs/topics.html', context)
