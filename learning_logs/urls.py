@@ -9,4 +9,6 @@ urlpatterns = [
 
     # 显示所有的主题
     url(r'^topics/$', views.topics, name='topics'),  # Django检查请求的URL时，这个模式与这样的URL匹配：基础URL后面跟着 topics 。可以在末尾包含斜杠，也可以省略它，但单词 topics 后面不能有任何东西，否则就与该模式不匹配。其URL与该模式匹配的请求都将交给views.py中的函数 topics() 进行处理。
+    # 特定主题的详细页面
+    url(r'^topics/(?P<topic_id>\d+)/$', views.topic, name='topic'),  # "?P<topic_id>"将匹配的值存储到topic_id中;发现URL与这个模式匹配时，Django将调用视图函数topic(),并将存储在topic_id中的值作为实参传递给它
 ]
