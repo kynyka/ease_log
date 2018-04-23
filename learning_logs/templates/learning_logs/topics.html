@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <p>Topic<p>
+  <p>Topics<p>
 
   <ul>
     {% for topic in topics %}
@@ -15,5 +15,7 @@ URL模式要求提供实参 topic_id ，因此我们在模板标签 url 中添�
     <li>No topics have been added yet.</li>
   {% endfor %}
   </ul>
+
+  <a href="{% url 'learning_logs:new_topic' %}">Add a new topic:</a>
 
 {% endblock content %}
