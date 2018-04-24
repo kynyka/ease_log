@@ -41,6 +41,7 @@ INSTALLED_APPS = [  # 它告诉Django项目是由哪些应用程序组成的
 
     # 我的应用程序
     'learning_logs',  # 即python manage.py startapp xxx 时创建的那个名字
+    'users',  # 创建的这个应用程序,包含并处理用户账户相关的所有功能
 ]
 
 MIDDLEWARE = [
