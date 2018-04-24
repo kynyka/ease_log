@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect #这个URL模式将请求交给视�
 from django.core.urlresolvers import reverse
 
 from .models import Topic  # 首先导入与所需数据相关联的模型
-from .forms import TopicForm
+from .forms import TopicForm, EntryForm
 
 # Create your views here.
 def index(request):
@@ -41,3 +41,20 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'learning_logs/new_topic.html', context)
 
+def new_entry(request, topic_id):
+    '''在特定的主题中添加新条目'''
+    topic = Topic.objects.get(id=topic_id)
+
+    if request.method != 'POST':
+        # 未提交数据,创建一个空表单
+        form = EntryForm()
+    else:
+        # POST提交的数据,对数据进行处理
+        form = EntryForm(data=request.POST) # 创建一个EntryForm实例,使用request对象中的POST数据来填充它
+        if form.is_valid():
+            new_entry = form.save(commit=False) # 实参commit=False,让Django创建一个新的条目对象,并将其存储到new_entry中,但不将它保存到数据库中
+            new_entry.topic = topic # 将new_entry的属性topic设置为在这个函数开头从数据库中获取的主题
+            new_entry.save() # 调用save()且不指定任何实参,这将把条目保存到数据库,并将其与正确的主题相关联
+            return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic_id]))  # 将用户重定向到显示相关主题的页面。调用reverse()时,需要提供两个实参：要根据它来生成URL的URL模式的名称;列表 args,其中包含要包含在URL中的所有实参。在这里,列表args只有一个元素————topic_id。接下来,调用HttpResponseRedirect()将用户重定向到显示新增条目所属主题的页面,用户将在该页面的条目列表中看到新添加的条目。
+    context = {'topic': topic, 'form': form}
+    return render(request, 'learning_logs/new_entry.html', context)

@@ -9,9 +9,9 @@ class TopicForm(forms.ModelForm):  # 定义了一个名为TopicForm的类,它继
         fields = ['text']  # 该表单只包含字段text
         labels = {'text': ''}  # 让Django不要为字段text生成标签,即input框前没字
 
-    class EntryForm(forms.ModelForm):
-        class Meta:
-            model = Entry
-            fields = ['text']
-            labels = {'text': ''}
-            widgets = {'text': forms.Textarea(attrs={'cols': 80})} # widget是一个HTML表单元素,如单行文本框、多行文本区域或下拉列表。通过设置属性widgets,可覆盖Django选择的默认小部件。通过让Django使用 forms.Textarea,我们定制了字段'text'的输入小部件,将文本区域的宽度设置为80列,而不是默认的40列。
+class EntryForm(forms.ModelForm):
+    class Meta:
+        model = Entry
+        fields = ['text']
+        labels = {'text': ''}
+        widgets = {'text': forms.Textarea(attrs={'cols': 80})} # widget是一个HTML表单元素,如单行文本框、多行文本区域或下拉列表。通过设置属性widgets,可覆盖Django选择的默认小部件。通过让Django使用 forms.Textarea,我们定制了字段'text'的输入小部件,将文本区域的宽度设置为80列,而不是默认的40列。
