@@ -2,7 +2,12 @@
 <!--模板标签 \{% url 'learning_logs:index' %\}生成一个URL，该URL与learning_logs/urls.py中定义的名为 index 的URL模式匹配在这个示例中，learning_logs 是一个命名空间，而 index 是该命名空间中一个名称独特的URL模式。-->
 <p>
   <a href="{% url 'learning_logs:index' %}">Learning Log</a> - 
-  <a href="{% url 'learning_logs:topics' %}">Topics</a> <!--这一行让Django生成一个链接，它与learning_logs/
-urls.py中名为 topics 的URL模式匹配。-->
+  <a href="{% url 'learning_logs:topics' %}">Topics</a> - <!--这一行让Django生成一个链接，它与learning_logs/urls.py中名为 topics 的URL模式匹配。-->
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }}.<!--在Django身份验证系统中，每个模板都可使用变量 user，这个变量有一个 is_authenticated
+属性：如果用户已登录，该属性将为 True，否则为 False。这让你能够向已通过身份验证的用户显示一条消息,而向未通过身份验证的用户显示另一条消息。-->
+  {% else %}
+    <a href="{% url 'users:login' %}">log in</a>
+  {% endif %}
 </p>
   {% block content %}{% endblock content %}
