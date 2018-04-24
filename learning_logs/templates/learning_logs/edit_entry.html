@@ -5,7 +5,7 @@
 
 	<p>Edit entry:</p>
 
-    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post'><!--实参action将表单发挥给函数edit_entry()进行处理。在标签\{% url %\}中将条目ID作为一个实参,让视图对象能够修改正确的条目对象-->
+    <form action="{% url 'learning_logs:edit_entry' entry.id %}" method='post'><!--实参action将表单发挥给函数edit_entry()进行处理。在标签\{\% url \%\}中将条目ID作为一个实参,让视图对象能够修改正确的条目对象-->
       {% csrf_token %}
       {{ form.as_p}}
       <button name="submit">save changes</button>

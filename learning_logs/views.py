@@ -75,4 +75,4 @@ def edit_entry(request, entry_id):
             return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic.id])) # 重定向到现显示条目所属主题的页面,用户将在其中看到编辑后的新版本条目
 
     context = {'entry': entry, 'topic': topic, 'form': form}
-    return render(request, 'learing_logs/edit_entry.html', context)
+    return render(request, 'learning_logs/edit_entry.html', context)
