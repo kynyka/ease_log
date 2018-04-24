@@ -16,5 +16,8 @@ urlpatterns = [
     url(r'^new_topic/$', views.new_topic, name='new_topic'),  # 这个URL模式将请求交给视图函数new_topic(),接下来我们将编写这个函数
 
     # 用于添加新条目的页面
-    url(r'^new_entry/(?P<topic_id>\d+)/$', views.new_entry, name='new_entry')
+    url(r'^new_entry/(?P<topic_id>\d+)/$', views.new_entry, name='new_entry'),
+
+    # 用于编辑条目的页面
+    url(r'^edit_entry/(?P<entry_id>\d+)/$', views.edit_entry, name='edit_entry'),
 ]
