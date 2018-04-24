@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect #这个URL模式将请求交给视图函数new_topic,接下来我们将编写这个函数。
 from django.core.urlresolvers import reverse
 
-from .models import Topic  # 首先导入与所需数据相关联的模型
+from .models import Topic, Entry  # 首先导入与所需数据相关联的模型
 from .forms import TopicForm, EntryForm
 
 # Create your views here.
@@ -58,3 +58,21 @@ def new_entry(request, topic_id):
             return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic_id]))  # 将用户重定向到显示相关主题的页面。调用reverse()时,需要提供两个实参：要根据它来生成URL的URL模式的名称;列表 args,其中包含要包含在URL中的所有实参。在这里,列表args只有一个元素————topic_id。接下来,调用HttpResponseRedirect()将用户重定向到显示新增条目所属主题的页面,用户将在该页面的条目列表中看到新添加的条目。
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
+
+def edit_entry(request, entry_id):
+    '''编辑既有条目'''
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+
+    if request.method != 'POST':
+        # 初次请求,使用当前条目填充表单
+        form = EntryForm(instance=entry)  # 在请求方法为GET时,将执行if代码块;用实参instance=entry创建一个EntryForm实例。这个实参让Ejango创建一个表单,并使用既有条目对象中的信息填充它。用户将看到既有的数据,并能够编辑它们。
+    else:
+        # POST提交的数据,对数据进行处理
+        form = EntryForm(instance=entry, data=request.POST) # 处理POST请求时传递实参instance=entry和data=request.POST,让Django根据既有条目对象创建一个表单实例,并根据request.POST中的相关数据对其进行修改
+        if form.is_valid(): # 然后我们检查表单是否有效,如果有效,就调用save(),且不指定任何实参
+            form.save()
+            return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic.id])) # 重定向到现显示条目所属主题的页面,用户将在其中看到编辑后的新版本条目
+
+    context = {'entry': entry, 'topic': topic, 'form': form}
+    return render(request, 'learing_logs/edit_entry.html', context)
