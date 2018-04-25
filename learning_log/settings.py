@@ -39,6 +39,9 @@ INSTALLED_APPS = [  # 它告诉Django项目是由哪些应用程序组成的
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 第三方应用程序
+    'bootstrap3',
+
     # 我的应用程序
     'learning_logs',  # 即python manage.py startapp xxx 时创建的那个名字
     'users',  # 创建的这个应用程序,包含并处理用户账户相关的所有功能
@@ -126,3 +129,8 @@ STATIC_URL = '/static/'
 
 # 我的设置
 LOGIN_URL = '/users/login/'
+
+# django-bootstrap3的设置[让django-bootstrap3包含jQuery]
+BOOTSTRAP3 = {
+    'include_jquery': True,
+    }
