@@ -43,7 +43,9 @@ def new_topic(request):
         # POST提交的数据,对数据进行处理
         form = TopicForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user  # 将新主题的owner属性设置为当前用户
+            new_topic.save()
             return HttpResponseRedirect(reverse('learning_logs:topics'))  # 函数reverse()根据指定的URL模型确定URL,这意味着Django将在页面被请求时生成URL
 
     context = {'form': form}
