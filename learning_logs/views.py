@@ -27,8 +27,7 @@ def topic(request, topic_id):
     '''显示单个主题及其所有的条目'''
     topic = Topic.objects.get(id=topic_id)
     # 确认请求的主题属于当前用户
-    if topic.owner != request.user:
-        raise Http404
+    check_topic_owner(topic, request)
     entries = topic.entry_set.order_by('-date_added')  #  date_added 前面的减号指定按降序排列,即先显示最近的条目
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
@@ -75,8 +74,7 @@ def edit_entry(request, entry_id):
     '''编辑既有条目'''
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
-    if topic.owner != request.user:  # 禁止用户通过输入类似于前面的特定URL来访问其他用户的条目
-        raise Http404
+    check_topic_owner(topic, request)
 
     if request.method != 'POST':
         # 初次请求,使用当前条目填充表单
@@ -90,3 +88,8 @@ def edit_entry(request, entry_id):
 
     context = {'entry': entry, 'topic': topic, 'form': form}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+
+def check_topic_owner(topic, request):
+    if topic.owner != request.user:  # 禁止用户通过输入类似于前面的特定URL来访问其他用户的条目
+        raise Http404
