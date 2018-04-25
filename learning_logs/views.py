@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect  # 用户提交主题后我们将使用这个类将用户重定向到网页 topics
+from django.http import HttpResponseRedirect, Http404  # 用户提交主题后我们将使用这个类将用户重定向到网页 topics
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required  # Django提供了装饰器@login_required,让你能够轻松地实现这样的目标: 对于某些页面,只允许已登录的用户访问它们
 
@@ -26,6 +26,9 @@ def topics(request):
 def topic(request, topic_id):
     '''显示单个主题及其所有的条目'''
     topic = Topic.objects.get(id=topic_id)
+    # 确认请求的主题属于当前用户
+    if topic.owner != request.user:
+        raise Http404
     entries = topic.entry_set.order_by('-date_added')  #  date_added 前面的减号指定按降序排列,即先显示最近的条目
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/topic.html', context)
