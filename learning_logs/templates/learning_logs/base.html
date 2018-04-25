@@ -8,6 +8,7 @@
 属性：如果用户已登录，该属性将为 True，否则为 False。这让你能够向已通过身份验证的用户显示一条消息,而向未通过身份验证的用户显示另一条消息。-->
     <a href="{% url 'users:logout' %}">log out</a>
   {% else %}
+    <a href="{% url 'users:register' %}">register</a> - 
     <a href="{% url 'users:login' %}">log in</a>
   {% endif %}
 </p>
