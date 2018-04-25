@@ -1,21 +1,23 @@
 {% extends 'learning_logs/base.html' %}
 
-{% block content %}
+{% block header %}
+  <h1>Topics</h1>
+{% endblock header %}
 
-  <p>Topics<p>
+{% block content %}
 
   <ul>
     {% for topic in topics %}
     <li>
-      <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>
-      <!--使用模板标签 url 根据learning_logs中名为 topic 的URL模式来生成合适的链接。这个
-URL模式要求提供实参 topic_id ，因此我们在模板标签 url 中添加了属性 topic.id -->
+      <h3>
+        <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a><!--使用模板标签url根据learning_logs中名为 topic 的URL模式来生成合适的链接。这个URL模式要求提供实参topic_id,因此我们在模板标签url中添加了属性topic.id -->
+      </h3>
     </li>
-    {% empty %}  <!--模板标签 \{\% empty \%\} ，它告诉Django在列表 topics 为空时该怎么办：这里是打印一条消息，告诉用户还没有添加任何主题。-->
-    <li>No topics have been added yet.</li>
-  {% endfor %}
+    {% empty %}  <!--模板标签 \{\% empty \%\},它告诉Django在列表 topics 为空时该怎么办: 这里是打印一条消息,告诉用户还没有添加任何主题。-->
+      <li>No topics have been added yet.</li>
+    {% endfor %}
   </ul>
 
-  <a href="{% url 'learning_logs:new_topic' %}">Add a new topic:</a>
+  <h3><a href="{% url 'learning_logs:new_topic' %}">Add new topic</a></h3>
 
 {% endblock content %}
