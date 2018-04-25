@@ -2,8 +2,7 @@
 {% load bootstrap3 %}
 
 {% block header %}
-  <h2><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a><small> - Edit entry:</small></h2>
-
+  <h2><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a><small> - Edit entry</small></h2>
 {% endblock header %}
 
 {% block content %}
@@ -18,10 +17,3 @@
     </form>
 
 {% endblock content %}
-
-
-
-    
-  
-  
-    

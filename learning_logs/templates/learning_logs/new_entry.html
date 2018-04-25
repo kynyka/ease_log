@@ -1,20 +1,19 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <h2><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a><small> - Add a new entry</small></h2><!--在页面顶端显示了主题,让用户知道他是在哪个主题中添加条目;该主题名也是一个链接,可用于返回到该主题的主页面。-->
+{% endblock header %}
 
 {% block content %}
-    <p><a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a></p> <!--在页面顶端显示了主题,让用户知道他是在哪个主题中添加条目;该主题名也是一个链接,可用于返回到该主题的主页面。-->
 
-	<p>Add a new entry:</p>
-    <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post'><!--表单的实参action包含URL中的topic_id值,让视图函数能够将新条目关联到正确的主题-->
+    <form action="{% url 'learning_logs:new_entry' topic.id %}" method='post' class='form'><!--表单的实参action包含URL中的topic_id值,让视图函数能够将新条目关联到正确的主题-->
       {% csrf_token %}
-      {{ form.as_p}}
-      <button name="submit">add entry</button>
+      {% bootstrap_form form %}<!--替换\{{ form.as_p }\}-->
+
+      {% buttons %}
+        <button name="submit" class='btn btn-primary'>add entry</button>
+      {% endbuttons %}
     </form>
 
 {% endblock content %}
-
-
-
-    
-  
-  
-    
