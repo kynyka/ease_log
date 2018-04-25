@@ -1,15 +1,58 @@
-<!--创建一个包含项目名的段落，该段落也是一个到主页的链接-->
-<!--模板标签 \{% url 'learning_logs:index' %\}生成一个URL，该URL与learning_logs/urls.py中定义的名为 index 的URL模式匹配在这个示例中，learning_logs 是一个命名空间，而 index 是该命名空间中一个名称独特的URL模式。-->
-<p>
-  <a href="{% url 'learning_logs:index' %}">Learning Log</a> - 
-  <a href="{% url 'learning_logs:topics' %}">Topics</a> - <!--这一行让Django生成一个链接，它与learning_logs/urls.py中名为 topics 的URL模式匹配。-->
-  {% if user.is_authenticated %}
-    Hello, {{ user.username }}.<!--在Django身份验证系统中，每个模板都可使用变量 user，这个变量有一个 is_authenticated
-属性：如果用户已登录，该属性将为 True，否则为 False。这让你能够向已通过身份验证的用户显示一条消息,而向未通过身份验证的用户显示另一条消息。-->
-    <a href="{% url 'users:logout' %}">log out</a>
-  {% else %}
-    <a href="{% url 'users:register' %}">register</a> - 
-    <a href="{% url 'users:login' %}">log in</a>
-  {% endif %}
-</p>
-  {% block content %}{% endblock content %}
+{% load bootstrap3 %}<!--加载django-bootstrap3中的模板标签集-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Learning Log</title>
+
+    {% bootstrap_css %}<!--使用django-bootstrap3的一个自定义模板标签,它让Django包含所有的Bootstrap样式文件-->
+    {% bootstrap_javascript %}
+
+</head>
+<body>
+    <!--Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class='container'>
+            
+            <div class='navbar-header'>
+                <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+                </button><!--这个模板定义了一个按钮，它将在浏览器窗口太窄、无法水平显示整个导航栏时显示出来。如果用户单击这个按钮，将出现一个下拉列表，其中包含所有的导航元素。在用户缩小浏览器窗口或在屏幕较小的移动设备上显示网站时，collapse 会使导航栏折叠起来-->
+                <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
+            </div>
+
+            <div id='navbar' class='navbar-collapse collapse'>
+                <ul class='nav navbar-nav'>
+                    <li><a href="{% url 'learning_logs:topics' %}">Topics</a></li>
+                </ul>
+
+                <ul class='nav navbar-nav navbar-right'>
+                    {% if user.is_authenticated %}
+                        <li><a>Hello, {{ user.username }}.</a></li><!--在Django身份验证系统中,每个模板都可使用变量 user,这个变量有一个is_authenticated属性: 如果用户已登录,该属性将为True,否则为False。这让你能够向已通过身份验证的用户显示一条消息,而向未通过身份验证的用户显示另一条消息。-->
+                        <li><a href="{% url 'users:logout' %}">log out</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:register' %}">register</a></li>
+                        <li><a href="{% url 'users:login' %}">log in</a></li>
+                    {% endif %}
+                </ul>
+            </div><!--/.nav-collapse-->
+
+        </div>
+    </nav>
+    
+    <div class='container'>
+        
+        <div class='page-header'>
+            {% block header %}{% endblock header %}<!--header块的内容告诉用户页面包含哪些信息以及用户可在页面上执行哪些操作-->
+        </div>
+        <div>
+            {% block content %}{% endblock content %}
+        </div>
+
+    </div><!-- /container -->
+</body>
+</html>
+
