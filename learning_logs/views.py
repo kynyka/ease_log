@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect #这个URL模式将请求交给视图函数new_topic,接下来我们将编写这个函数。
+from django.http import HttpResponseRedirect  # 用户提交主题后我们将使用这个类将用户重定向到网页 topics
 from django.core.urlresolvers import reverse
 
 from .models import Topic, Entry  # 首先导入与所需数据相关联的模型
