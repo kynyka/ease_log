@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponseRedirect  # 用户提交主题后我们将使用这个类将用户重定向到网页 topics
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required  # Django提供了装饰器@login_required,让你能够轻松地实现这样的目标: 对于某些页面,只允许已登录的用户访问它们
 
 from .models import Topic, Entry  # 首先导入与所需数据相关联的模型
 from .forms import TopicForm, EntryForm
@@ -13,6 +14,8 @@ def index(request):
     '''学习笔记的主页'''
     return render(request, 'learning_logs/index.html')  # 第1个实参为原始请求对象,第2个实参为可用于创建网页的模板
 
+@login_required  # 让Python在运行topics()的代码前先运行login_required()的代码。login_required()的代码检查用户是否已登录，仅当用户已登录时，Django才运行topics()的代码。
+# 如果用户未登录，就重定向到登录页面。[此部分工作在learning_logs/settings.py文件末尾行设置]
 def topics(request):
     '''显示所有的主题'''
     topics = Topic.objects.order_by('date_added')
