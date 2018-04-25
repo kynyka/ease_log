@@ -1,16 +1,24 @@
 {% extends 'learning_logs/base.html' %}<!--一个应用程序中的模板可继承另一个应用程序中的模板-->
+{% load bootstrap3 %}<!--不加尽管能用某些bootstrap的类样式,但却会令 bootstrap_form form 处报错-->
+
+{% block header %}
+  <h2>Log in to your account.</h2>
+{% endblock header %}
 
 {% block content %}
   
-  {% if form.errors %}
+  <!-- 不需要这部分了,因为django-bootstrap3会自动管理表单错误 \{% if form.errors %\}
   <p>Your username and password didn't match. Please try again.</p>
-  {% endif %}
+  \{% endif %\} -->
 
-  <form method='post' action="{% url 'users:login' %}">
+  <form method='post' action="{% url 'users:login' %}" class='form'>
   	{% csrf_token %}
-  	{{ form.as_p}}
+  	{% bootstrap_form form %}<!--替换\{{ form.as_p }\} 将Bootstrap样式规则应用于各个表单元素-->
+  	
+	{% buttons %}<!--bootstrap3起始模板标签\{% buttons %\},它将Bootstrap样式应用于按钮-->
+  	  <button name='submit' class='btn btn-primary'>log in</button>
+	{% endbuttons %}
 
-  	<button name='submit'>log in</button>
   	<input type="hidden" name='next' value="{% url 'learning_logs:index' %}" /><!--此处包含了一个隐藏的表单元素———— 'next'，其中的实参 value 告诉Django在用户成功登录后将其重定向到什么地方————在这里是主页-->
   </form>
 
