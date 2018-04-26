@@ -147,8 +147,12 @@ if cwd == '/app' or cwd[:4] == '/tmp': # 更新：https://ehmatthes.github.io/pc
     # 让request.is_secure()承认X-Forwarded-Proto头 [i.e.支持HTTPS请求]
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-    # 支持所有的主机头（host header）[i.e.让Django能够使用Heroku的URL来提供项目提供的服务]
-    ALLOWED_HOSTS = ['*']
+    # 支持所有的主机头（host header）[i.e.让Django能够使用Heroku的URL来提供项目提供的服务]
+    # 将['*']改为['logease.herokuapp.com'], 只允许Heroku托管这个项目
+    ALLOWED_HOSTS = ['logease.herokuapp.com']
+
+    # 让Django不在错误发生时显示敏感信息; 注意本地仍能看到调试信息,因为现在这块儿代码只对部署的环境有作用
+    DEBUG = False
 
     # 静态资产配置 [i.e.设置项目，使其能够在Heroku上正确地提供静态文件]
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
