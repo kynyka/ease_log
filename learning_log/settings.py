@@ -137,7 +137,8 @@ BOOTSTRAP3 = {
 
 # Heroku设置
 '''os.getcwd()获取当前的工作目录（当前运行的文件所在的目录）。在Heroku部署中，这个目录总是/app。在本地部署中，这个目录通常是项目文件夹的名称（就本项目而言，为learning_log）。这个 if 测试确保仅当项目被部署到Heroku时，才运行这个代码块。这种结构让我们能够将同一个设置文件用于本地开发环境和在线服务器。'''
-if os.getcwd() == '/app':
+cwd = os.getcwd()
+if cwd == '/app' or cwd[:4] == '/tmp': # 更新：https://ehmatthes.github.io/pcc/chapter_20/README.html#updates
     import dj_database_url # 导入dj_database_url，用于在Heroku上配置服务器。Heroku使用PostgreSQL(也叫Postgres)————一种比SQLite更高级的数据库
     DATABASES = {
         'default': dj_database_url.config(default='postgres://localhost')
