@@ -1,4 +1,5 @@
-#不跟踪所有pyc类型的文件
+#不跟踪所有pyc类型的文件;对Py3,改成忽略目录__pycache__/
 *.pyc
+*.sqlite3
 #不跟踪下面的目录
-/ll_env/
+ll_env/
