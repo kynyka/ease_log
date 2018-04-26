@@ -133,4 +133,25 @@ LOGIN_URL = '/users/login/'
 # django-bootstrap3的设置[让django-bootstrap3包含jQuery]
 BOOTSTRAP3 = {
     'include_jquery': True,
+}
+
+# Heroku设置
+'''os.getcwd()获取当前的工作目录（当前运行的文件所在的目录）。在Heroku部署中，这个目录总是/app。在本地部署中，这个目录通常是项目文件夹的名称（就本项目而言，为learning_log）。这个 if 测试确保仅当项目被部署到Heroku时，才运行这个代码块。这种结构让我们能够将同一个设置文件用于本地开发环境和在线服务器。'''
+if os.getcwd() == '/app':
+    import dj_database_url # 导入dj_database_url，用于在Heroku上配置服务器。Heroku使用PostgreSQL(也叫Postgres)————一种比SQLite更高级的数据库
+    DATABASES = {
+        'default': dj_database_url.config(default='postgres://localhost')
     }
+
+    # 让request.is_secure()承认X-Forwarded-Proto头 [i.e.支持HTTPS请求]
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+    # 支持所有的主机头（host header）[i.e.让Django能够使用Heroku的URL来提供项目提供的服务]
+    ALLOWED_HOSTS = ['*']
+
+    # 静态资产配置 [i.e.设置项目，使其能够在Heroku上正确地提供静态文件]
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    STATIC_ROOT = 'staticfiles'
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
