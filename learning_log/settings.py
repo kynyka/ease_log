@@ -26,7 +26,7 @@ SECRET_KEY = '@*c@tv41$1+$f8_zvc#1mzm7^o!hsn#2!i*0rns$w#^-6&581s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] # 查看本地自定义的404/500页面时,L.27为False,L.29为['localhost']
 
 
 # Application definition
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'learning_log.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'learning_log/templates')], # 让Django在根模板目录中查找错误页面模板
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,7 +151,7 @@ if cwd == '/app' or cwd[:4] == '/tmp': # 更新：https://ehmatthes.github.io/pc
     # 将['*']改为['logease.herokuapp.com'], 只允许Heroku托管这个项目
     ALLOWED_HOSTS = ['logease.herokuapp.com']
 
-    # 让Django不在错误发生时显示敏感信息; 注意本地仍能看到调试信息,因为现在这块儿代码只对部署的环境有作用
+    # 让Django不在错误发生时显示敏感信息; 注意本地仍能看到调试信息(L.27),因为现在这块儿代码只对部署的环境有作用
     DEBUG = False
 
     # 静态资产配置 [i.e.设置项目，使其能够在Heroku上正确地提供静态文件]
