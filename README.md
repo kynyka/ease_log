@@ -1,4 +1,4 @@
-A simple open registrable log system which has functions such as register, login, logout, creating new topics, writing new entries and editing entries. Users can create their own accounts for their sake. And after the account is created, a user can make his own logs henceforth, i.e., create a topic and add entries to it. As far as privacy is considered, this system will also verify the user when he logs in so as to present his own page rather than someone else' page with irrelevant topics and entries.
-Built with django, sqlite and bootstrap.
-Cloud hosted on Heroku (PaaS).
+A simple open registrable log system which has functions such as register, login, logout, creating new topics, writing new entries and editing entries. Users can create their own accounts for their sake. And after the account is created, a user can make his own logs henceforth, i.e., create a topic and add entries to it. As far as privacy is considered, this system will also verify the user when he logs in so as to present his own page rather than someone else' page with irrelevant topics and entries.  
+Built with django, sqlite and bootstrap.  
+Cloud hosted on Heroku (PaaS).  
 Demonstration: http://t.cn/RuMDQX5
